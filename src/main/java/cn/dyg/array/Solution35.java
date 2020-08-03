@@ -85,6 +85,38 @@ public class Solution35 {
 
     }
 
+    /**
+     * searchInsert2 方法是 二分解法-第二种
+     *
+     * @param nums 数组
+     * @param target 目标值
+     * @return 所在下标或要插入的下标
+     * @author dongyinggang
+     * @date 2020/8/3 16:59
+     */
+    public int searchInsert2(int[] nums, int target) {
+
+        int n = nums.length;
+        int left = 0;
+        int right = n - 1;
+        //当right<left后,就说明查询结束了
+        while (left <= right) {
+            int mid = left + (right - left) / 2;
+            //如果mid下标的值 < 目标值,也就是mid及之前的下标是非题解的,因此将left+1
+            //此时题解区间为[mid+1,left]
+            if (nums[mid] < target) {
+                left = mid + 1;
+            } else {
+                //当nums[mid] >= target是,mid及之前的下标(含mid)可能是题解
+                //此时题解区间为[left,mid-1]
+                //排除掉了mid值,如果在[left,mid-1]未找到该值,
+                //则说明mid值为要target所在或需要被插入的位置
+                right = mid - 1;
+            }
+        }
+        return left;
+    }
+
     public static void main(String[] args) {
         int[] nums = new int[]{1,3,5,6};
         int target = 5;
