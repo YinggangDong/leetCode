@@ -30,7 +30,7 @@ public class Solution167 {
      *
      * @param numbers 数组
      * @param target  目标值
-     * @return
+     * @return 结果值
      * @author dongyinggang
      * @date 2020/8/4 13:32
      */
@@ -52,6 +52,66 @@ public class Solution167 {
                 }
             }
         }
+        return new int[]{-1, -1};
+    }
+
+    /**
+     * twoSum1 方法是 双指针解法
+     *
+     * @param numbers 数组
+     * @param target  目标值
+     * @return 结果值
+     * @author dongyinggang
+     * @date 2020/8/4 14:29
+     */
+    public int[] twoSum1(int[] numbers, int target) {
+        //慢指针
+        int i = 0;
+        int right = numbers.length;
+        //当i<快指针的右边界时,可以继续改变i值
+        while (i < right) {
+            //快指针进行循环
+            for (int j = i + 1; j < right; j++) {
+                if (numbers[j] == target - numbers[i]) {
+                    return new int[]{i + 1, j + 1};
+                }
+                if (numbers[j] > target - numbers[i]) {
+                    //如果两数之和大于target了,则快指针的右侧范围就缩小为j
+                    right = j + 1;
+                }
+            }
+            //当前i无对应解时,将i进行+1
+            i++;
+        }
+
+        return new int[]{-1, -1};
+    }
+
+    /**
+     * twoSum2 方法是 双指针优化版-只需要遍历一次
+     *
+     * @param numbers 数组
+     * @param target  目标值
+     * @return 结果值
+     * @author dongyinggang
+     * @date 2020/8/4 14:39
+     */
+    public int[] twoSum2(int[] numbers, int target) {
+        //左指针
+        int left = 0;
+        //右指针
+        int right = numbers.length - 1;
+        //双指针未交汇时,left右移,会让和变大,right左移,会让和变小,所以有以下逻辑
+        while (left < right) {
+            if (target == numbers[left] + numbers[right]) {
+                return new int[]{left + 1, right + 1};
+            } else if (target > numbers[left] + numbers[right]) {
+                left++;
+            } else {
+                right--;
+            }
+        }
+        //未找到解时,返回{-1, -1}
         return new int[]{-1, -1};
     }
 }
