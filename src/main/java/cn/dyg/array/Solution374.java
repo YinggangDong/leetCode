@@ -45,10 +45,10 @@ public class Solution374 {
             if (guess(mid) == 0) {
                 return mid;
             } else if (guess(mid) == 1) {
-                //系统选出的数字>mid
+                //系统选出的数字>mid,所以解只可能在mid右侧,left重新赋值
                 left = mid + 1;
             } else {
-                //系统选出的数字<mid,
+                //系统选出的数字<mid,所以解只可能在mid左侧,right重新赋值
                 right = mid - 1;
             }
         }
